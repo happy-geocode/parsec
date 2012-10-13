@@ -36,7 +36,7 @@ module Parsec
       end
 
       def GermanParser.split_street_name_and_number(raw_street)
-        street_with_number = /(.+) (\d+)/
+        street_with_number = /(.+) (\d+\w?)/
 
         if raw_street =~ street_with_number
           raw_street.scan(street_with_number).first

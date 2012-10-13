@@ -73,7 +73,6 @@ describe "should work with German addresses" do
   end
 
   it "should recognize street numbers with letters in it" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12a, 50739 Köln"),
                          "hauptstrasse", "12a", "koeln", "50739", nil, nil)
   end
@@ -85,7 +84,6 @@ describe "should work with German addresses" do
   end
 
   it "should recognize addresses with street and number at last position" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("50739 Köln, Hauptstrasse 12a"),
                          "hauptstrasse", "12a", "koeln", "50739", nil, nil)
   end

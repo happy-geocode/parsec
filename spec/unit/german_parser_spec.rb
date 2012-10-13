@@ -49,6 +49,12 @@ describe "the German parser" do
       result.street_name.should   == "aachener strasse"
       result.street_number.should == "166"
     end
+
+    it "should accept an optional addon for the street number" do
+      result = subject.parse_comma_separated_string "Aachener Str. 166a"
+      result.street_name.should   == "aachener strasse"
+      result.street_number.should == "166a"
+    end
   end
 end
 
