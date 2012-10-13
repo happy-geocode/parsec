@@ -7,10 +7,9 @@ Parsec.setup
 
 def check_parsing_result(parsed, street, number, city, zip, state, country)
   parsed.street_name.should == street
-  parsed.city.should == city
   parsed.street_number.should == number
+  parsed.city.should == city
   parsed.zip.should == zip
-  parsed.country.should == country
   parsed.state.should == state
+  parsed.country.should == country
 end
-
