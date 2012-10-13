@@ -1,29 +1,14 @@
 require "parsec/parsed_address"
 require "parsec/core_ext/string"
 require "parsec/knowledge"
+require "parsec/parser/german_csv_parser"
 
 module Parsec
   module Parser
     class GermanParser
       def GermanParser.parse(raw_address)
-        GermanParser.parse_comma_separated_string raw_address
-      end
-
-      def GermanParser.parse_comma_separated_string(raw_address)
-        address = ParsedAddress.new
-
-        raw_address = GermanParser.take_apart raw_address
-        raw_address, address = GermanParser.determine_street raw_address, address
-        raw_address, address = GermanParser.determine_city raw_address, address
-        raw_address, address = GermanParser.determine_state raw_address, address
-        raw_address, address = GermanParser.determine_country raw_address, address
-
-        if address.street_name.nil? and raw_address.length == 1
-          address.street_name, address.street_number =
-            GermanParser.split_street_name_and_number raw_address.first
-        end
-
-        address
+        parser = GermanCSVParser.new raw_address
+        parser.address
       end
 
       def GermanParser.deabbriviate(raw_address)

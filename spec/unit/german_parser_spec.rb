@@ -11,21 +11,23 @@ describe "the German parser" do
   end
 
   describe "Comma separated String parser" do
+    subject { Parsec::Parser::GermanCSVParser }
+
     it "should parse street and city" do
-      result = subject.parse_comma_separated_string "Aachener Straße, Köln"
+      result = subject.new("Aachener Straße, Köln").address
       result.street_name.should == "aachener strasse"
       result.city.should        == "koeln"
     end
 
     it "should parse street with number and city" do
-      result = subject.parse_comma_separated_string "Aachener Straße 166, Köln"
+      result = subject.new("Aachener Straße 166, Köln").address
       result.street_name.should   == "aachener strasse"
       result.street_number.should == "166"
       result.city.should          == "koeln"
     end
 
     it "should parse street with number and city with zip code" do
-      result = subject.parse_comma_separated_string "Aachener Straße 166, 50931 Köln"
+      result = subject.new("Aachener Straße 166, 50931 Köln").address
 
       result.street_name.should   == "aachener strasse"
       result.street_number.should == "166"
@@ -34,7 +36,7 @@ describe "the German parser" do
     end
 
     it "should parse full address" do
-      result = subject.parse_comma_separated_string "Aachener Straße 166, 50931 Köln, NRW, Deutschland"
+      result = subject.new("Aachener Straße 166, 50931 Köln, NRW, Deutschland").address
 
       result.street_name.should   == "aachener strasse"
       result.street_number.should == "166"
@@ -45,25 +47,25 @@ describe "the German parser" do
     end
 
     it "should parse an abbreviated street name" do
-      result = subject.parse_comma_separated_string "Aachener Str. 166"
+      result = subject.new("Aachener Str. 166").address
       result.street_name.should   == "aachener strasse"
       result.street_number.should == "166"
     end
 
     it "should accept an optional addon for the street number" do
-      result = subject.parse_comma_separated_string "Aachener Str. 166a"
+      result = subject.new("Aachener Str. 166a").address
       result.street_name.should   == "aachener strasse"
       result.street_number.should == "166a"
     end
 
     it "should accept an street number range" do
-      result = subject.parse_comma_separated_string "Aachener Str. 166-168"
+      result = subject.new("Aachener Str. 166-168").address
       result.street_name.should   == "aachener strasse"
       result.street_number.should == "166-168"
     end
 
     it "should guess that an arbitrary string that remains soley must be the street" do
-      result = subject.parse_comma_separated_string "Bullibu 166, 50931 Köln, NRW, Deutschland"
+      result = subject.new("Bullibu 166, 50931 Köln, NRW, Deutschland").address
 
       result.street_name.should   == "bullibu"
       result.street_number.should == "166"
@@ -74,7 +76,7 @@ describe "the German parser" do
     end
 
     it "should understand a partial city match" do
-      result = subject.parse_comma_separated_string "Aachener Straße, 48496 Hopsten-Schale"
+      result = subject.new("Aachener Straße, 48496 Hopsten-Schale").address
 
       result.zip.should   == "48496"
       result.city.should  == "hopsten"
