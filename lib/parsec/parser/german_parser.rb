@@ -19,16 +19,6 @@ module Parsec
         raw.include? "strasse"
       end
 
-      def GermanParser.split_street_name_and_number(raw_street)
-        street_with_number = /(.+) (\d+(-\d+)?\w?)/
-
-        if raw_street =~ street_with_number
-          raw_street.scan(street_with_number).first
-        else
-          [raw_street, nil]
-        end
-      end
-
       def GermanParser.is_city?(raw)
         if Parsec::Knowledge::City.by_name.has_key? raw
           true
@@ -46,6 +36,16 @@ module Parsec
       def GermanParser.is_country?(raw)
         Parsec::Knowledge::Country.by_name.has_key? raw or
           Parsec::Knowledge::Country.by_code.has_key? raw
+      end
+
+      def GermanParser.split_street_name_and_number(raw_street)
+        street_with_number = /(.+) (\d+(-\d+)?\w?)/
+
+        if raw_street =~ street_with_number
+          raw_street.scan(street_with_number).first
+        else
+          [raw_street, nil]
+        end
       end
     end
   end
