@@ -21,6 +21,8 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
+Parsec.setup
+
 parsed = Parsec.parse "Hauptstraße 23, Köln"
 
 parsed.street_name   #=> Hauptstrasse

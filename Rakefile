@@ -15,4 +15,4 @@ namespace :spec do
   end
 end
 
-task :default => ["spec:acceptance, spec:integration"]
+task :default => ["spec:acceptance", "spec:integration"]
