@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "parsec"
   gem.require_paths = ["lib"]
   gem.version       = Parsec::VERSION
+
+  gem.add_development_dependency "rspec", "~> 2.11.0"
 end
