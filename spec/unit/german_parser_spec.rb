@@ -61,6 +61,24 @@ describe "the German parser" do
       result.street_name.should   == "aachener strasse"
       result.street_number.should == "166-168"
     end
+
+    it "should guess that an arbitrary string that remains soley must be the street" do
+      result = subject.parse_comma_separated_string "Bullibu 166, 50931 Köln, NRW, Deutschland"
+
+      result.street_name.should   == "bullibu"
+      result.street_number.should == "166"
+      result.city.should          == "koeln"
+      result.zip.should           == "50931"
+      result.state.should         == "nrw"
+      result.country.should       == "deutschland"
+    end
+
+    it "should understand a partial city match" do
+      result = subject.parse_comma_separated_string "Aachener Straße, 48496 Hopsten-Schale"
+
+      result.zip.should   == "48496"
+      result.city.should  == "hopsten"
+    end
   end
 end
 

@@ -67,7 +67,6 @@ describe "should work with German addresses" do
   end
 
   it "should parse a small city with a subvillage address" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Im Raitgorn 19, 48496 Hopsten-Schale"),
                          "im raitgorn", "19", "hopsten", "48496", nil, nil)
   end

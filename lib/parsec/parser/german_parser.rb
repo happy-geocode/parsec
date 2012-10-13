@@ -18,6 +18,11 @@ module Parsec
         raw_address, address = GermanParser.determine_state raw_address, address
         raw_address, address = GermanParser.determine_country raw_address, address
 
+        if address.street_name.nil? and raw_address.length == 1
+          address.street_name, address.street_number =
+            GermanParser.split_street_name_and_number raw_address.first
+        end
+
         address
       end
 
@@ -58,7 +63,12 @@ module Parsec
       end
 
       def GermanParser.is_city?(raw)
-        Parsec::Knowledge::City.by_name.has_key? raw
+        if Parsec::Knowledge::City.by_name.has_key? raw
+          true
+        elsif raw.include? "-"
+          raw = raw.split("-").first
+          Parsec::Knowledge::City.by_name.has_key? raw
+        end
       end
 
       def GermanParser.determine_city(raw_address, address)
@@ -72,6 +82,7 @@ module Parsec
           end
 
           if GermanParser.is_city? city_name
+            city_name = city_name.split("-").first
             address.city, address.zip = city_name, zip
             true
           end
