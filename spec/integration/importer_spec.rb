@@ -4,7 +4,7 @@ require 'parsec/knowledge'
 
 describe "the knowledge of the parser" do
   before :all do
-    Parsec::Knowledge::GeonamesImporter.import "raw_data/DE.txt"
+    Parsec::Knowledge.import "raw_data/DE.txt"
   end
 
   it "should know the country Germany" do
