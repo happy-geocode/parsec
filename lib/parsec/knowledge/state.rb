@@ -33,6 +33,10 @@ module Parsec
         @zips = []
         @cities  = []
       end
+
+      def to_s
+        @name.to_s
+      end
     end
   end
 end
