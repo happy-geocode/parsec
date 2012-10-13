@@ -78,7 +78,6 @@ describe "should work with German addresses" do
   end
 
   it "should recognize street numbers with range" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12-20a, 50739 Köln"),
                          "hauptstrasse", "12-20a", "koeln", "50739", nil, nil)
   end
