@@ -91,19 +91,16 @@ describe "should work with German addresses" do
   end
 
   it "should recognize a city with a state in long form" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Köln, Nordrhein-Westfalen"),
                          nil, nil, "koeln", nil, "nordrhein-westfalen", nil)
   end
 
   it "should recognize a city with a state in short form" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Köln, NRW"),
                          nil, nil, "koeln", nil, "nrw", nil)
   end
 
   it "should recognize city if only city is present" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Köln"),
                          nil, nil, "koeln", nil, nil, nil)
   end
