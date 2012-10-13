@@ -15,13 +15,11 @@ describe "should work with German addresses" do
   end
 
   it "should parse str. and change it to strasse" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstr. 24, 50739 Köln, NRW, Deutschland"),
                          "hauptstrasse", "24", "koeln", "50739", "nrw", "deutschland")
   end
 
   it "should parse street without number" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstr., 50739 Köln, NRW, Deutschland"),
                          "hauptstrasse", nil, "koeln", "50739", "nrw", "deutschland")
   end

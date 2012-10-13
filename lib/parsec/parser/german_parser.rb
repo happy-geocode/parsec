@@ -21,9 +21,13 @@ module Parsec
         address
       end
 
+      def GermanParser.deabbriviate(raw_address)
+        raw_address.gsub("str.", "strasse")
+      end
+
       def GermanParser.take_apart(raw_address)
         raw_address.split(",").map do |element|
-          element.strip.normalize_for_parsec
+          GermanParser.deabbriviate element.strip.normalize_for_parsec
         end
       end
 

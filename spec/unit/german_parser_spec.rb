@@ -43,6 +43,12 @@ describe "the German parser" do
       result.state.should         == "nrw"
       result.country.should       == "deutschland"
     end
+
+    it "should parse an abbreviated street name" do
+      result = subject.parse_comma_separated_string "Aachener Str. 166"
+      result.street_name.should   == "aachener strasse"
+      result.street_number.should == "166"
+    end
   end
 end
 
