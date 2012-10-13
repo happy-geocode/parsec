@@ -15,6 +15,8 @@ module Parsec
         raw_address = GermanParser.take_apart raw_address
         raw_address, address = GermanParser.determine_street raw_address, address
         raw_address, address = GermanParser.determine_city raw_address, address
+        raw_address, address = GermanParser.determine_state raw_address, address
+        raw_address, address = GermanParser.determine_country raw_address, address
 
         address
       end
@@ -56,9 +58,49 @@ module Parsec
       end
 
       def GermanParser.determine_city(raw_address, address)
+        city_with_zip = /(\d+) (.+)/
+
         raw_address.delete_if do |element|
-          if GermanParser.is_city? element
-            address.city = element
+          if element =~ city_with_zip
+            zip, city_name = element.scan(city_with_zip).first
+          else
+            city_name, zip = element, nil
+          end
+
+          if GermanParser.is_city? city_name
+            address.city, address.zip = city_name, zip
+            true
+          end
+        end
+
+        [raw_address, address]
+      end
+
+      def GermanParser.is_state?(raw)
+        Parsec::Knowledge::State.by_name.has_key? raw or
+          Parsec::Knowledge::State.by_code.has_key? raw
+      end
+
+      def GermanParser.determine_state(raw_address, address)
+        raw_address.delete_if do |element|
+          if GermanParser.is_state? element
+            address.state = element
+            true
+          end
+        end
+
+        [raw_address, address]
+      end
+
+      def GermanParser.is_country?(raw)
+        Parsec::Knowledge::Country.by_name.has_key? raw or
+          Parsec::Knowledge::Country.by_code.has_key? raw
+      end
+
+      def GermanParser.determine_country(raw_address, address)
+        raw_address.delete_if do |element|
+          if GermanParser.is_country? element
+            address.country = element
             true
           end
         end

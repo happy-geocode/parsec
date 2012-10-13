@@ -23,6 +23,26 @@ describe "the German parser" do
       result.street_number.should == "166"
       result.city.should          == "koeln"
     end
+
+    it "should parse street with number and city with zip code" do
+      result = subject.parse_comma_separated_string "Aachener Straße 166, 50931 Köln"
+
+      result.street_name.should   == "aachener strasse"
+      result.street_number.should == "166"
+      result.city.should          == "koeln"
+      result.zip.should           == "50931"
+    end
+
+    it "should parse full address" do
+      result = subject.parse_comma_separated_string "Aachener Straße 166, 50931 Köln, NRW, Deutschland"
+
+      result.street_name.should   == "aachener strasse"
+      result.street_number.should == "166"
+      result.city.should          == "koeln"
+      result.zip.should           == "50931"
+      result.state.should         == "nrw"
+      result.country.should       == "deutschland"
+    end
   end
 end
 

@@ -10,21 +10,20 @@ describe "should work with German addresses" do
   end
 
   it "should parse simple address with zip code" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstraße 24, 50739 Köln, NRW, Deutschland"),
-                         "hauptstrasse", "24", "koeln", 50739, "nrw", "deutschland")
+                         "hauptstrasse", "24", "koeln", "50739", "nrw", "deutschland")
   end
 
   it "should parse str. and change it to strasse" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstr. 24, 50739 Köln, NRW, Deutschland"),
-                         "hauptstrasse", "24", "koeln", 50739, "nrw", "deutschland")
+                         "hauptstrasse", "24", "koeln", "50739", "nrw", "deutschland")
   end
 
   it "should parse street without number" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstr., 50739 Köln, NRW, Deutschland"),
-                         "hauptstrasse", nil, "koeln", 50739, "nrw", "deutschland")
+                         "hauptstrasse", nil, "koeln", "50739", "nrw", "deutschland")
   end
 
   it "should parse address without any commas" do
@@ -36,13 +35,13 @@ describe "should work with German addresses" do
   it "should parse address without any commas including a zip code" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12 50739 Köln"),
-                         "hauptstrasse", "12", "koeln", 50739, nil, nil)
+                         "hauptstrasse", "12", "koeln", "50739", nil, nil)
   end
 
   it "should parse address without any commas with zip but without street number" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 50739 Köln"),
-                         "hauptstrasse", nil, "koeln", 50739, nil, nil)
+                         "hauptstrasse", nil, "koeln", "50739", nil, nil)
   end
 
   it "should parse address with city first" do
@@ -72,25 +71,25 @@ describe "should work with German addresses" do
   it "should parse a small city with a subvillage address" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Im Raitgorn 19, 48496 Hopsten-Schale"),
-                         "im raitgorn", "19", "hopsten", 48496, nil, nil)
+                         "im raitgorn", "19", "hopsten", "48496", nil, nil)
   end
 
   it "should recognize street numbers with letters in it" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12a, 50739 Köln"),
-                         "hauptstrasse", "12a", "koeln", 50739, nil, nil)
+                         "hauptstrasse", "12a", "koeln", "50739", nil, nil)
   end
 
   it "should recognize street numbers with range" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12-20a, 50739 Köln"),
-                         "hauptstrasse", "12-20a", "koeln", 50739, nil, nil)
+                         "hauptstrasse", "12-20a", "koeln", "50739", nil, nil)
   end
 
   it "should recognize addresses with street and number at last position" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("50739 Köln, Hauptstrasse 12a"),
-                         "hauptstrasse", "12a", "koeln", 50739, nil, nil)
+                         "hauptstrasse", "12a", "koeln", "50739", nil, nil)
   end
 
   it "should recognize a city with a state in long form" do
