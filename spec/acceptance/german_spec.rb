@@ -8,8 +8,8 @@ describe "should work with German addresses" do
     pending "Not implemented yet"
     parsed = subject.parse("Hauptstraße 23, Köln")
 
-    parsed.street_name.should == "Hauptstraße"
-    parsed.city.should == "Köln"
+    parsed.street_name.should == "Hauptstrasse"
+    parsed.city.should == "Koeln"
     parsed.street_number.should == 23
     parsed.zip.should == nil
     parsed.country.should == nil

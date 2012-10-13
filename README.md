@@ -23,8 +23,8 @@ Or install it yourself as:
 ```ruby
 parsed = Parsec.parse "Hauptstraße 23, Köln"
 
-parsed.street_name   #=> Hauptstraße
-parsed.city          #=> Köln
+parsed.street_name   #=> Hauptstrasse
+parsed.city          #=> Koeln
 parsed.street_number #=> 23
 parsed.zip           #=> nil
 parsed.country       #=> nil
