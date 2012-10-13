@@ -7,19 +7,19 @@ describe "should work with German addresses" do
   it "should work with the example from the README" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstraße 24, Köln"),
-                         "Hauptstrasse", 24, "Koeln", nil, nil, nil)
+                         "Hauptstrasse", "24", "Koeln", nil, nil, nil)
   end
 
   it "should parse simple address with zip code" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstraße 24, 50739 Köln, NRW, Deutschland"),
-                         "Hauptstrasse", 24, "Koeln", 50739, "NRW", "Deutschland")
+                         "Hauptstrasse", "24", "Koeln", 50739, "NRW", "Deutschland")
   end
 
   it "should parse str. and change it to strasse" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstr. 24, 50739 Köln, NRW, Deutschland"),
-                         "Hauptstrasse", 24, "Koeln", 50739, "NRW", "Deutschland")
+                         "Hauptstrasse", "24", "Koeln", 50739, "NRW", "Deutschland")
   end
 
   it "should parse street without number" do
@@ -31,13 +31,13 @@ describe "should work with German addresses" do
   it "should parse address without any commas" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12 Köln"),
-                         "Hauptstrasse", 12, "Koeln", nil, nil, nil)
+                         "Hauptstrasse", "12", "Koeln", nil, nil, nil)
   end
 
   it "should parse address without any commas including a zip code" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12 50739 Köln"),
-                         "Hauptstrasse", 12, "Koeln", 50739, nil, nil)
+                         "Hauptstrasse", "12", "Koeln", 50739, nil, nil)
   end
 
   it "should parse address without any commas with zip but without street number" do
@@ -70,10 +70,51 @@ describe "should work with German addresses" do
                          "Hauptgässle", nil, "Koeln", nil, nil, nil)
   end
 
-  it "small city with a subvillage address" do
+  it "should parse a small city with a subvillage address" do
     pending "Not implemened yet"
     check_parsing_result(subject.parse("Im Raitgorn 19, 48496 Hopsten-Schale"),
-                         "Im Raitgorn", 19, "Hopsten", 48496, nil, nil)
+                         "Im Raitgorn", "19", "Hopsten", 48496, nil, nil)
   end
 
+  it "should recognize street numbers with letters in it" do
+    pending "Not implemened yet"
+    check_parsing_result(subject.parse("Hauptstrasse 12a, 50739 Köln"),
+                         "Hauptstrasse", "12a", "Koeln", 50739, nil, nil)
+  end
+
+  it "should recognize street numbers with range" do
+    pending "Not implemened yet"
+    check_parsing_result(subject.parse("Hauptstrasse 12-20a, 50739 Köln"),
+                         "Hauptstrasse", "12-20a", "Koeln", 50739, nil, nil)
+  end
+
+  it "should recognize addresses with street and number at last position" do
+    pending "Not implemened yet"
+    check_parsing_result(subject.parse("50739 Köln, Hauptstrasse 12a"),
+                         "Hauptstrasse", "12a", "Koeln", 50739, nil, nil)
+  end
+
+  it "should recognize a city with a state in long form" do
+    pending "Not implemened yet"
+    check_parsing_result(subject.parse("Köln, Nordrhein-Westfalen"),
+                         nil, nil, "Koeln", nil, "Nordrhein-Westfalen", nil)
+  end
+
+  it "should recognize a city with a state in short form" do
+    pending "Not implemened yet"
+    check_parsing_result(subject.parse("Köln, NRW"),
+                         nil, nil, "Koeln", nil, "NRW", nil)
+  end
+
+  it "should recognize city if only city is present" do
+    pending "Not implemened yet"
+    check_parsing_result(subject.parse("Köln"),
+                         nil, nil, "Koeln", nil, nil, nil)
+  end
+
+  it "should throw exception if not parseable shit is thrown at it" do
+    pending "Not implemened yet"
+    expect { subject.parse("diesistkeinestrasseundschmeissteineexception") }.to raise_error
+  end
 end
+

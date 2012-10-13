@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 
 require "parsec"
 
-def check_parsing_result(parsed, street, number, city, zip, country, state)
+def check_parsing_result(parsed, street, number, city, zip, state, country)
   parsed.street_name.should == street
   parsed.city.should == city
   parsed.street_number.should == number
