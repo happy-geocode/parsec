@@ -1,6 +1,7 @@
 require "parsec/version"
 require "parsec/knowledge"
 require "parsec/parsed_address"
+require "parsec/parser"
 
 module Parsec
   # Setup Parsec for parsing - just call it at startup
@@ -9,7 +10,7 @@ module Parsec
     Knowledge.common_knowledge
   end
 
-  def Parsec.parse(raw_string)
-    ParsedAddress.new
+  def Parsec.parse(raw_address)
+    Parser::GermanParser.parse raw_address
   end
 end

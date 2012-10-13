@@ -13,6 +13,11 @@ namespace :spec do
   RSpec::Core::RakeTask.new(:integration) do |spec|
     spec.pattern = "spec/integration/*_spec.rb"
   end
+
+  desc "unit tests"
+  RSpec::Core::RakeTask.new(:unit) do |spec|
+    spec.pattern = "spec/unit/*_spec.rb"
+  end
 end
 
-task :default => ["spec:acceptance", "spec:integration"]
+task :default => ["spec:acceptance", "spec:integration", "spec:unit"]
