@@ -6,7 +6,7 @@ require "parsec/parser"
 module Parsec
   # Setup Parsec for parsing - just call it at startup
   def Parsec.setup
-    Parsec::Knowledge.import "raw_data/DE.txt"
+    Parsec::Knowledge.import File.expand_path("../../raw_data/DE.txt", __FILE__)
     Knowledge.common_knowledge
   end
 
