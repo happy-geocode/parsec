@@ -41,7 +41,7 @@ module Parsec
       end
 
       def determine_city(raw_address)
-        city_with_zip = /(\d+) (.+)/
+        city_with_zip = @knowledge_provider.city_with_zip_format
 
         raw_address.delete_if do |element|
           if element =~ city_with_zip

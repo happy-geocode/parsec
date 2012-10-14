@@ -26,6 +26,7 @@ describe "Comma separated String parser" do
     knowledge_provider.stub :is_country? do |state|
       state == "deutschland"
     end
+    knowledge_provider.stub(:city_with_zip_format).and_return(/(\d+) (.+)/)
   end
 
   it "should parse street and city" do

@@ -2,10 +2,14 @@ module Parsec
   module Native
     # This guy knows a lot about Germany
     class German
+      attr_reader :city_with_zip_format
+
       def initialize(city, state, country)
         @city    = city
         @state   = state
         @country = country
+
+        @city_with_zip_format = /(\d+) (.+)/
       end
 
       def is_street?(raw)
