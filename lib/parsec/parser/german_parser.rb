@@ -11,10 +11,6 @@ module Parsec
         parser.address
       end
 
-      def GermanParser.clean_string(raw_address)
-        raw_address.normalize_for_parsec.gsub("str.", "strasse")
-      end
-
       def GermanParser.is_street?(raw)
         raw.include? "strasse"
       end

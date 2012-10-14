@@ -1,4 +1,5 @@
 require 'parsec/parsed_address'
+require 'parsec/core_ext/string'
 
 module Parsec
   module Parser
@@ -23,7 +24,7 @@ module Parsec
 
       def take_apart(raw_address)
         raw_address.split(",").map do |element|
-          @knowledge_provider.clean_string element.strip
+          element.strip.normalize_for_parsec
         end
       end
 

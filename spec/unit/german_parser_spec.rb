@@ -10,77 +10,71 @@ describe "the German parser" do
     Parsec::Knowledge.common_knowledge
   end
 
-  describe "Comma separated String parser" do
-    let(:knowledge_provider) { Parsec::Parser::GermanParser }
-    subject { Parsec::Parser::CommaSeparatedParser }
+  it "should recognize a street without street number" do
+    subject.is_street?("aachener strasse").should be_true
+  end
 
-    it "should parse street and city" do
-      result = subject.new("Aachener Straße, Köln", knowledge_provider).address
-      result.street_name.should == "aachener strasse"
-      result.city.should        == "koeln"
-    end
+  it "should recognize a street with street number" do
+    subject.is_street?("aachener strasse 166").should be_true
+  end
 
-    it "should parse street with number and city" do
-      result = subject.new("Aachener Straße 166, Köln", knowledge_provider).address
-      result.street_name.should   == "aachener strasse"
-      result.street_number.should == "166"
-      result.city.should          == "koeln"
-    end
+  it "should recognize a street with street number and add-on" do
+    subject.is_street?("aachener strasse 166a").should be_true
+  end
 
-    it "should parse street with number and city with zip code" do
-      result = subject.new("Aachener Straße 166, 50931 Köln", knowledge_provider).address
+  it "should recognize a street with street number range" do
+    subject.is_street?("aachener strasse 166-168").should be_true
+  end
 
-      result.street_name.should   == "aachener strasse"
-      result.street_number.should == "166"
-      result.city.should          == "koeln"
-      result.zip.should           == "50931"
-    end
+  it "should recognize a street with street number range and add-on" do
+    subject.is_street?("aachener strasse 166-168a").should be_true
+  end
 
-    it "should parse full address" do
-      result = subject.new("Aachener Straße 166, 50931 Köln, NRW, Deutschland", knowledge_provider).address
+  it "should not recognize Koeln as a street" do
+    subject.is_street?("koeln").should be_false
+  end
 
-      result.street_name.should   == "aachener strasse"
-      result.street_number.should == "166"
-      result.city.should          == "koeln"
-      result.zip.should           == "50931"
-      result.state.should         == "nrw"
-      result.country.should       == "deutschland"
-    end
+  it "should recognize a city match" do
+    subject.is_city?("koeln").should be_true
+  end
 
-    it "should parse an abbreviated street name" do
-      result = subject.new("Aachener Str. 166", knowledge_provider).address
-      result.street_name.should   == "aachener strasse"
-      result.street_number.should == "166"
-    end
+  it "should recognize a partial city match" do
+    subject.is_city?("koeln-weiden").should be_true
+  end
 
-    it "should accept an optional addon for the street number" do
-      result = subject.new("Aachener Str. 166a", knowledge_provider).address
-      result.street_name.should   == "aachener strasse"
-      result.street_number.should == "166a"
-    end
+  it "should not recognize a city that does not exist" do
+    subject.is_city?("fatasiestadt").should be_false
+  end
 
-    it "should accept an street number range" do
-      result = subject.new("Aachener Str. 166-168", knowledge_provider).address
-      result.street_name.should   == "aachener strasse"
-      result.street_number.should == "166-168"
-    end
+  it "should recognize a state abbreviation" do
+    subject.is_state?("nrw").should be_true
+  end
 
-    it "should guess that an arbitrary string that remains soley must be the street" do
-      result = subject.new("Bullibu 166, 50931 Köln, NRW, Deutschland", knowledge_provider).address
+  it "should recognize a full state name" do
+    subject.is_state?("bayern").should be_true
+  end
 
-      result.street_name.should   == "bullibu"
-      result.street_number.should == "166"
-      result.city.should          == "koeln"
-      result.zip.should           == "50931"
-      result.state.should         == "nrw"
-      result.country.should       == "deutschland"
-    end
+  it "should not recognize a state that does not exist" do
+    subject.is_state?("fatasiestaat").should be_false
+  end
 
-    it "should understand a partial city match" do
-      result = subject.new("Aachener Straße, 48496 Hopsten-Schale", knowledge_provider).address
+  it "should recognize Germany as a country" do
+    subject.is_country?("deutschland").should be_true
+  end
 
-      result.zip.should   == "48496"
-      result.city.should  == "hopsten"
-    end
+  it "should not recognize a country that does not exist" do
+    subject.is_country?("fatasieland").should be_false
+  end
+
+  it "should split a street without a number" do
+    split = subject.split_street_name_and_number "aachener strasse 166"
+    split[0].should == "aachener strasse"
+    split[1].should == "166"
+  end
+
+  it "should split a street with a number" do
+    split = subject.split_street_name_and_number "aachener strasse"
+    split[0].should == "aachener strasse"
+    split[1].should be_nil
   end
 end

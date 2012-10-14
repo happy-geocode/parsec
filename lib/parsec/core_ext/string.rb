@@ -2,7 +2,7 @@
 
 class String
   def normalize_for_parsec
-    self.gsub("ä", "ae").gsub("ü", "ue").gsub("ö", "oe").gsub("ß", "ss").downcase
+    self.gsub("ä", "ae").gsub("ü", "ue").gsub("ö", "oe").gsub("ß", "ss").downcase.gsub("str.", "strasse")
   end
 
   def normalize_for_parsec!
@@ -10,6 +10,7 @@ class String
     gsub!("ü", "ue")
     gsub!("ö", "oe")
     gsub!("ß", "ss")
+    gsub!("str.", "strasse")
     downcase!
   end
 end
