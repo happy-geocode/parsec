@@ -1,47 +1,15 @@
-require "parsec/parsed_address"
 require "parsec/core_ext/string"
-require "parsec/knowledge"
+require "parsec/parsed_address"
+require "parsec/native/german"
 require "parsec/parser/comma_separated_parser"
 
 module Parsec
   module Parser
     class GermanParser
       def GermanParser.parse(raw_address)
-        parser = CommaSeparatedParser.new raw_address, GermanParser
+        native = Parsec::Native::German.new
+        parser = CommaSeparatedParser.new raw_address, native
         parser.address
-      end
-
-      def GermanParser.is_street?(raw)
-        raw.include? "strasse"
-      end
-
-      def GermanParser.is_city?(raw)
-        if Parsec::Knowledge::City.by_name.has_key? raw
-          true
-        elsif raw.include? "-"
-          raw = raw.split("-").first
-          Parsec::Knowledge::City.by_name.has_key? raw
-        end
-      end
-
-      def GermanParser.is_state?(raw)
-        Parsec::Knowledge::State.by_name.has_key? raw or
-          Parsec::Knowledge::State.by_code.has_key? raw
-      end
-
-      def GermanParser.is_country?(raw)
-        Parsec::Knowledge::Country.by_name.has_key? raw or
-          Parsec::Knowledge::Country.by_code.has_key? raw
-      end
-
-      def GermanParser.split_street_name_and_number(raw_street)
-        street_with_number = /(.+) (\d+(-\d+)?\w?)/
-
-        if raw_street =~ street_with_number
-          raw_street.scan(street_with_number).first
-        else
-          [raw_street, nil]
-        end
       end
     end
   end

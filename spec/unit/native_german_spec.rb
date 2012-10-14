@@ -1,9 +1,9 @@
 # encoding: UTF-8
 require 'unit/spec_helper'
-require 'parsec/parser/german_parser'
+require 'parsec/native/german'
 
-describe "the German parser" do
-  subject { Parsec::Parser::GermanParser }
+describe "the German native" do
+  subject { Parsec::Native::German.new }
 
   before(:all) do
     Parsec::Knowledge.import "raw_data/DE.txt"
