@@ -7,7 +7,7 @@ module Parsec
   module Parser
     class GermanParser
       def GermanParser.parse(raw_address)
-        parser = GermanCSVParser.new raw_address
+        parser = GermanCSVParser.new raw_address, GermanParser
         parser.address
       end
 
