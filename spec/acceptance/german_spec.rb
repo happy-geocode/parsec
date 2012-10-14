@@ -25,45 +25,38 @@ describe "should work with German addresses" do
   end
 
   it "should parse address without any commas" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12 Köln"),
                          "hauptstrasse", "12", "koeln", nil, nil, nil)
   end
 
   it "should parse address without any commas including a zip code" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 12 50739 Köln"),
                          "hauptstrasse", "12", "koeln", "50739", nil, nil)
   end
 
   it "should parse address without any commas with zip but without street number" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Hauptstrasse 50739 Köln"),
                          "hauptstrasse", nil, "koeln", "50739", nil, nil)
   end
 
   it "should parse address with city first" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Köln Hauptstrasse"),
                          "hauptstrasse", nil, "koeln", nil, nil, nil)
   end
 
   it "...weg means it is a street, too" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Köln Hauptweg"),
                          "hauptweg", nil, "koeln", nil, nil, nil)
   end
 
   it "...gasse means it is a street, too" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Köln Hauptgasse"),
                          "hauptgasse", nil, "koeln", nil, nil, nil)
   end
 
   it "...gässle means it is a street, too" do
-    pending "Not implemened yet"
     check_parsing_result(subject.parse("Köln Hauptgässle"),
-                         "hauptgässle", nil, "koeln", nil, nil, nil)
+                         "hauptgaessle", nil, "koeln", nil, nil, nil)
   end
 
   it "should parse a small city with a subvillage address" do
@@ -99,10 +92,5 @@ describe "should work with German addresses" do
   it "should recognize city if only city is present" do
     check_parsing_result(subject.parse("Köln"),
                          nil, nil, "koeln", nil, nil, nil)
-  end
-
-  it "should throw exception if not parseable shit is thrown at it" do
-    pending "Not implemened yet"
-    expect { subject.parse("diesistkeinestrasseundschmeissteineexception") }.to raise_error
   end
 end

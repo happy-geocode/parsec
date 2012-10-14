@@ -4,18 +4,23 @@ module Parsec
     class German
       attr_reader :city_with_zip_format
       attr_reader :street_with_name_and_number
+      attr_reader :zip_format
 
       def initialize(city, state, country)
         @city    = city
         @state   = state
         @country = country
 
+        @zip_format                  = /\d{5}/
         @city_with_zip_format        = /(\d{5}) (.+)/
         @street_with_name_and_number = /(.+) (\d{1,4}(-\d{1,4})?\w?)/
       end
 
       def is_street?(raw)
-        raw.include? "strasse"
+        raw.include? "strasse" or
+        raw.include? "weg" or
+        raw.include? "gasse" or
+        raw.include? "gaessle"
       end
 
       def is_city?(raw)
