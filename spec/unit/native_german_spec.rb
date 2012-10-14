@@ -3,11 +3,17 @@ require 'unit/spec_helper'
 require 'parsec/native/german'
 
 describe "the German native" do
-  subject { Parsec::Native::German.new }
+  let(:city)    { double }
+  let(:state)   { double }
+  let(:country) { double }
+  subject { Parsec::Native::German.new city, state, country }
 
-  before(:all) do
-    Parsec::Knowledge.import "raw_data/DE.txt"
-    Parsec::Knowledge.common_knowledge
+  before :each do
+    city.stub(:by_name).and_return({"koeln" => nil})
+    state.stub(:by_code).and_return({"nrw" => nil})
+    state.stub(:by_name).and_return({"bayern" => nil})
+    country.stub(:by_code).and_return({"de" => nil})
+    country.stub(:by_name).and_return({"deutschland" => nil})
   end
 
   it "should recognize a street without street number" do
