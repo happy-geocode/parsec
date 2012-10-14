@@ -20,7 +20,8 @@ module Parsec
         raw.include? "strasse" or
         raw.include? "weg" or
         raw.include? "gasse" or
-        raw.include? "gaessle"
+        raw.include? "gaessle" or
+        raw.include? "platz"
       end
 
       def is_city?(raw)

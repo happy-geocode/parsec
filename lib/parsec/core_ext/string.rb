@@ -8,6 +8,7 @@ class String
     .gsub("ß", "ss")
     .downcase
     .gsub("str.", "strasse")
+    .gsub("pl.", "platz")
   end
 
   def normalize_for_parsec!
@@ -17,5 +18,6 @@ class String
     gsub!("ß", "ss")
     downcase!
     gsub!("str.", "strasse")
+    gsub!("pl.", "platz")
   end
 end
