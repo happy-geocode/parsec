@@ -3,13 +3,15 @@ module Parsec
     # This guy knows a lot about Germany
     class German
       attr_reader :city_with_zip_format
+      attr_reader :street_with_name_and_number
 
       def initialize(city, state, country)
         @city    = city
         @state   = state
         @country = country
 
-        @city_with_zip_format = /(\d+) (.+)/
+        @city_with_zip_format        = /(\d{5}) (.+)/
+        @street_with_name_and_number = /(.+) (\d{1,4}(-\d{1,4})?\w?)/
       end
 
       def is_street?(raw)
@@ -36,10 +38,8 @@ module Parsec
       end
 
       def split_street_name_and_number(raw_street)
-        street_with_number = /(.+) (\d+(-\d+)?\w?)/
-
-        if raw_street =~ street_with_number
-          raw_street.scan(street_with_number).first
+        if raw_street =~ @street_with_name_and_number
+          raw_street.scan(@street_with_name_and_number).first
         else
           [raw_street, nil]
         end
