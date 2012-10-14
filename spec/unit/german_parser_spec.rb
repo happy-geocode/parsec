@@ -12,7 +12,7 @@ describe "the German parser" do
 
   describe "Comma separated String parser" do
     let(:knowledge_provider) { Parsec::Parser::GermanParser }
-    subject { Parsec::Parser::GermanCSVParser }
+    subject { Parsec::Parser::CommaSeparatedParser }
 
     it "should parse street and city" do
       result = subject.new("Aachener Straße, Köln", knowledge_provider).address

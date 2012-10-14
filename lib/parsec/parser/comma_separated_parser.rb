@@ -1,6 +1,8 @@
+require 'parsec/parsed_address'
+
 module Parsec
   module Parser
-    class GermanCSVParser
+    class CommaSeparatedParser
       attr_reader :address
 
       def initialize(raw_address, knowledge_provider)

@@ -1,13 +1,13 @@
 require "parsec/parsed_address"
 require "parsec/core_ext/string"
 require "parsec/knowledge"
-require "parsec/parser/german_csv_parser"
+require "parsec/parser/comma_separated_parser"
 
 module Parsec
   module Parser
     class GermanParser
       def GermanParser.parse(raw_address)
-        parser = GermanCSVParser.new raw_address, GermanParser
+        parser = CommaSeparatedParser.new raw_address, GermanParser
         parser.address
       end
 
