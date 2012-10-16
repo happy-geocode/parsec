@@ -1,15 +1,15 @@
 require "parsec/core_ext/string"
 require "parsec/parsed_address"
 require "parsec/knowledge"
-require "parsec/native/german"
+require "parsec/native/de"
 require "parsec/parser/commaless_monster"
 require "parsec/parser/comma_separated_parser"
 
 module Parsec
   module Parser
-    class GermanParser
-      def GermanParser.parse(raw_address)
-        native = Parsec::Native::German.new Parsec::Knowledge::City,
+    class DeParser
+      def DeParser.parse(raw_address)
+        native = Parsec::Native::De.new Parsec::Knowledge::City,
           Parsec::Knowledge::State,
           Parsec::Knowledge::Country
 

@@ -1,12 +1,12 @@
 # encoding: UTF-8
 require 'unit/spec_helper'
-require 'parsec/native/german'
+require 'parsec/native/de'
 
 describe "the German native" do
   let(:city)    { double }
   let(:state)   { double }
   let(:country) { double }
-  subject { Parsec::Native::German.new city, state, country }
+  subject { Parsec::Native::De.new city, state, country }
 
   before :each do
     city.stub(:by_name).and_return({"koeln" => nil})

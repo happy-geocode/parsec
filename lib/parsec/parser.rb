@@ -1,4 +1,4 @@
-require "parsec/parser/german_parser"
+require "parsec/parser/de_parser"
 
 module Parsec
   # Collection of parsers for different countries

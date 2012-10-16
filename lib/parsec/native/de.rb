@@ -1,7 +1,7 @@
 module Parsec
   module Native
     # This guy knows a lot about Germany
-    class German
+    class De
       attr_reader :city_with_zip_format
       attr_reader :street_with_name_and_number
       attr_reader :zip_format
