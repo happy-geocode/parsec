@@ -19,7 +19,12 @@ module Parsec
   end
 
   def Parsec.parse(raw_address)
-    native = Parsec::Native.const_get @country.capitalize
+    native_class = Parsec::Native.const_get @country.capitalize
+
+    native = native_class.new Parsec::Knowledge::City,
+      Parsec::Knowledge::State,
+      Parsec::Knowledge::Country
+
     Parser.parse native, raw_address
   end
 end
