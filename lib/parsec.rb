@@ -1,6 +1,7 @@
 require "parsec/version"
 require "parsec/knowledge"
 require "parsec/parsed_address"
+require "parsec/parser"
 
 module Parsec
   # Setup Parsec for parsing - just call it at startup
@@ -15,10 +16,10 @@ module Parsec
 
     # Load up the native and parser for this country
     require "parsec/native/#{@country}"
-    require "parsec/parser/#{@country}_parser"
   end
 
   def Parsec.parse(raw_address)
-    Parser.const_get("#{@country.capitalize}Parser").parse raw_address
+    native = Parsec::Native.const_get @country.capitalize
+    Parser.parse native, raw_address
   end
 end
